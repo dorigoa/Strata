@@ -1,14 +1,16 @@
 ### Installation
 ```
 cd ~
+git clone git@github.com:dorigoa/Strata.git
+cd Strata
 git clone https://github.com/Niko1221/Strata.git
-cd ~/Strata
+cd Strata
 ./setup.sh --no-start # then answer the questions
 ```
-Based on the selected model, there is a json config file, e.g. strata-unsloth-ud-q4_k_xl.json
+Based on the selected model, a json config file is generated, e.g. `strata-unsloth-ud-q4_k_xl.json`.
 ```
-cp strata-unsloth-ud-q4_k_xl.json ..
-cd ..
+cp strata-unsloth-ud-q4_k_xl.json ~/Strata/
+cd ~/Strata
 ./Strata/.venv/bin/python ./Strata/serve/server.py --engine strata --config ./strata-unsloth-ud-q4_k_xl.json --port 8080 --open
 ```
 
