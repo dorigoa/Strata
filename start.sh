@@ -8,7 +8,7 @@ fi
 cd Strata
 #./update.sh
 /usr/bin/yes n | STRATA_ALLOWED_HOSTS=ai.exocomet-boga.ts.net ./setup.sh \
-    --host 0.0.0.0 --port 8000 \
+    --host 0.0.0.0 --port 8080 \
     --pack /nvme/Strata-data/packs/unsloth-ud-q4_k_xl \
     --native /nvme/Strata-data/models/unsloth-UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00001-of-00004.gguf \
     --export-profile ~/Strata/Strata/data/expert-profile.bin \
