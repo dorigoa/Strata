@@ -13,7 +13,7 @@ cd Strata
     --native /nvme/Strata-data/models/unsloth-UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00001-of-00004.gguf \
     --export-profile ~/Strata/Strata/data/expert-profile.bin \
     --expert-chache auto --prefill auto --spec 4 --spec-min-p 0.5 \
-    --mtp /nvme/Strata-data/mtp/rt \
+    --mtp on \
     --max-context 131072 --context 131072 \
     --parallel 1 \
     --cuda 13  --gpu 1,0 \
