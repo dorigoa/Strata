@@ -1,11 +1,11 @@
-Installation
+### Installation
 ```
 cd ~
 git clone https://github.com/Niko1221/Strata.git
 cd ~/Strata
 ./setup.sh --no-start # then answer the questions
 ```
-# based on the selected model, there is a json config file, e.g. strata-unsloth-ud-q4_k_xl.json
+Based on the selected model, there is a json config file, e.g. strata-unsloth-ud-q4_k_xl.json
 ```
 cp strata-unsloth-ud-q4_k_xl.json ..
 cd ..
