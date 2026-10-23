@@ -2,9 +2,9 @@
  "exe": "/home/alvise/Strata/Strata/engine/strata",
  "args": [
   "--pack",
-  "/home/alvise/GIT/Strata-data/packs/unsloth-ud-q4_k_xl",
+  "/nvme/Strata-data/packs/unsloth-ud-q4_k_xl",
   "--native",
-  "/home/alvise/GIT/Strata-data/models/unsloth-UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00001-of-00004.gguf",
+  "/nvme/Strata-data/models/unsloth-UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00001-of-00004.gguf",
   "--expert-profile",
   "/home/alvise/Strata/Strata/data/expert-profile.bin",
   "--expert-cache",
@@ -13,17 +13,16 @@
   "auto",
   "--spec",
   "4",
+  "--spec-min-p",
+  "0.5",
   "--mtp",
-  "/home/alvise/GIT/Strata-data/mtp/rt",
+  "/nvme/Strata-data/mtp/rt",
   "--max-context",
-  "131072",
+  "262144",
   "--kv",
   "int8",
   "--kv-resident",
   "32768",
-  "--vision",
-  "--spec-min-p",
-  "0.70",
   "--pcie-frac",
   "0.20",
   "--adapt-every",
@@ -31,10 +30,12 @@
   "--adapt-swaps",
   "80",
   "--adapt-decay",
-  "0.97"
+  "0.97",
+  "--vram-reserve-mib",
+  "1300"
  ],
  "cwd": "/home/alvise/Strata/Strata",
- "tokenizer": "/home/alvise/GIT/Strata-data/packs/unsloth-ud-q4_k_xl/tokenizer",
+ "tokenizer": "/nvme/Strata-data/packs/unsloth-ud-q4_k_xl/tokenizer",
  "model_name": "qwen3.8-flash-next-unsloth-ud-q4_k_xl",
  "log": "/home/alvise/Strata/Strata/strata-unsloth-ud-q4_k_xl.log",
  "lib_dirs": [
@@ -47,20 +48,18 @@
   "STRATA_ROUTE_TAIL_SKIP": "0"
  },
  "gpu": [
-  1,
-  0
+  0,
+  1
  ],
  "gpus_asked": true,
  "layer_split": "auto",
- "draft_vocab": "en",
- "vision": {
-  "exe": "/home/alvise/Strata/Strata/engine/strata-vision",
-  "mmproj": "/home/alvise/GIT/Strata-data/models/mmproj-Qwen3.8-Flash-Next-BF16.gguf",
-  "model": "/home/alvise/GIT/Strata-data/models/unsloth-UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00001-of-00004.gguf",
-  "gpu": false,
-  "max_tokens": 300,
-  "threads": 8
+ "gpu_order": "as_given",
+ "gpu_roles": {
+  "0": "helper",
+  "1": "main"
  },
+ "draft_vocab": "en",
+ "mtp": true,
  "parallel": 1,
  "user_args": [
   "--pcie-frac",
@@ -70,13 +69,15 @@
   "--adapt-swaps",
   "80",
   "--adapt-decay",
-  "0.97"
+  "0.97",
+  "--vram-reserve-mib",
+  "1300"
  ],
  "args_written": [
   "--pack",
-  "/home/alvise/GIT/Strata-data/packs/unsloth-ud-q4_k_xl",
+  "/nvme/Strata-data/packs/unsloth-ud-q4_k_xl",
   "--native",
-  "/home/alvise/GIT/Strata-data/models/unsloth-UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00001-of-00004.gguf",
+  "/nvme/Strata-data/models/unsloth-UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00001-of-00004.gguf",
   "--expert-profile",
   "/home/alvise/Strata/Strata/data/expert-profile.bin",
   "--expert-cache",
@@ -85,17 +86,16 @@
   "auto",
   "--spec",
   "4",
+  "--spec-min-p",
+  "0.5",
   "--mtp",
-  "/home/alvise/GIT/Strata-data/mtp/rt",
+  "/nvme/Strata-data/mtp/rt",
   "--max-context",
-  "131072",
+  "262144",
   "--kv",
   "int8",
   "--kv-resident",
   "32768",
-  "--vision",
-  "--spec-min-p",
-  "0.70",
   "--pcie-frac",
   "0.20",
   "--adapt-every",
@@ -103,6 +103,8 @@
   "--adapt-swaps",
   "80",
   "--adapt-decay",
-  "0.97"
+  "0.97",
+  "--vram-reserve-mib",
+  "1300"
  ]
 }
