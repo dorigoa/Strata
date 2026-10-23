@@ -31,7 +31,7 @@ usage() {
 
 is_valid_provider() {
     local p
-    for p in "${VALID_PROVIDERS[@]}"; do
+    for p in "${VALID_FAMILIES[@]}"; do
         [[ "$1" == "$p" ]] && return 0
     done
     return 1
