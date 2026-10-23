@@ -37,12 +37,14 @@ is_valid_provider() {
     return 1
 }
 
-[[ -n "$1" ]] || usage
+model="${1:-}"
 
-is_valid_provider "$1" || { echo "Invalid model: $1" >&2; usage; }
+[[ -n "$model" ]] || usage
+
+is_valid_provider "$model" || { echo "Invalid model: $model" >&2; usage; }
 
 ./Strata/.venv/bin/python ./Strata/serve/server.py \
     --engine strata \
-    --config ./strata-$1.json \
+    --config ./strata-$model.json \
     --port 8080 --host 0.0.0.0 \
     --open
