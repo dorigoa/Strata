@@ -42,9 +42,11 @@ model="${1:-}"
 [[ -n "$model" ]] || usage
 
 is_valid_provider "$model" || { echo "Invalid model: $model" >&2; usage; }
+port="8000"
+host="0.0.0.0"
 
 ./Strata/.venv/bin/python ./Strata/serve/server.py \
     --engine strata \
     --config ./strata-$model.json \
-    --port 8080 --host 0.0.0.0 \
+    --port $port --host $host \
     --open

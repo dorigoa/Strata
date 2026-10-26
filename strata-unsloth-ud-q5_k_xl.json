@@ -1,0 +1,80 @@
+{
+ "exe": "/home/alvise/Strata/Strata/engine/strata",
+ "args": [
+  "--pack",
+  "/nvme/Strata-data/packs/unsloth-ud-q5_k_xl",
+  "--native",
+  "/nvme/Strata-data/models/unsloth-UD-Q5_K_XL/Qwen3.8-Flash-Next-UD-Q5_K_XL-00001-of-00006.gguf",
+  "--expert-profile",
+  "/home/alvise/Strata/Strata/data/expert-profile.bin",
+  "--expert-cache",
+  "auto",
+  "--prefill",
+  "auto",
+  "--spec",
+  "4",
+  "--mtp",
+  "/nvme/Strata-data/mtp/rt",
+  "--max-context",
+  "131072",
+  "--kv",
+  "int8",
+  "--pcie-frac",
+  "0.00",
+  "--spec-min-p",
+  "0.70",
+  "--adapt-every",
+  "1",
+  "--adapt-swaps",
+  "80",
+  "--adapt-decay",
+  "0.97"
+ ],
+ "cwd": "/home/alvise/Strata/Strata",
+ "tokenizer": "/nvme/Strata-data/packs/unsloth-ud-q5_k_xl/tokenizer",
+ "model_name": "qwen3.8-flash-next-unsloth-ud-q5_k_xl",
+ "log": "/home/alvise/Strata/Strata/strata-unsloth-ud-q5_k_xl.log",
+ "lib_dirs": [
+  "/etc/alternatives/cuda/bin",
+  "/etc/alternatives/cuda/lib64"
+ ],
+ "port": 8080,
+ "env": {
+  "STRATA_MMQ_KQ": "1",
+  "STRATA_HC_Q8": "1",
+  "STRATA_ROUTE_TAIL_SKIP": "0"
+ },
+ "gpu": [
+  0,
+  1
+ ],
+ "gpus_asked": true,
+ "layer_split": "auto",
+ "gpu_order": "as_given",
+ "gpu_roles": {
+  "0": "helper",
+  "1": "main"
+ },
+ "args_written": [
+  "--pack",
+  "/nvme/Strata-data/packs/unsloth-ud-q5_k_xl",
+  "--native",
+  "/nvme/Strata-data/models/unsloth-UD-Q5_K_XL/Qwen3.8-Flash-Next-UD-Q5_K_XL-00001-of-00006.gguf",
+  "--expert-profile",
+  "/home/alvise/Strata/Strata/data/expert-profile.bin",
+  "--expert-cache",
+  "auto",
+  "--prefill",
+  "auto",
+  "--spec",
+  "4",
+  "--spec-min-p",
+  "0.5",
+  "--mtp",
+  "/nvme/Strata-data/mtp/rt",
+  "--max-context",
+  "131072",
+  "--kv",
+  "int8"
+ ]
+}
