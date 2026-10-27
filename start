@@ -1,31 +1,20 @@
-#!/bin/bash
-#
-#./Strata/.venv/bin/python ./Strata/serve/server.py --engine strata --config ./strata-unsloth-ud-q4_k_xl.json --port 8080 --open
-# cd Strata
-# /usr/bin/yes n |./setup.sh --cuda 13\
-#  --model UD-Q4_K_XL --family unsloth\
-#  --vision no \
-#  --port 8080 --host 0.0.0.0  \
-#  --gpus 1,0 \
-#  --data-dir /nvme/Strata-data/ --models-dir /nvme/Strata-data/models/ \
-#  --draft-vocab en \
-#  --parallel 1 \
-#  --context 204800 \
-#  --kv int8 \
-#  --mtp on \
-#  --kv-streaming off \
-#  --vram-reserve-mib 1300 \
-#  --low-ram off
-
 #!/usr/bin/env bash
 
 set -euo pipefail
 
 VALID_FAMILIES=(unsloth nvfp4)
+VALID_QUANTS=(ud-q4_k_xl ud-q5_k_xl)
 
 usage() {
-    echo "Usage: $0 <model family> " >&2
-    echo "Available families: ${VALID_FAMILIES[*]}" >&2
+    echo "Usage: $0 <model_family> [options]" >&2
+    echo ""
+    echo "Arguments:"
+    echo "  model_family           One of: ${VALID_FAMILIES[*]}"
+    echo ""
+    echo "Options:"
+    echo "  --quant <type>         Quantization for unsloth (ud-q4_k_xl or ud-q5_k_xl)"
+    echo "  --port <number>        Port number (default: 8000)"
+    echo "  --host <address>       Host address (default: 0.0.0.0)"
     exit 1
 }
 
@@ -37,16 +26,94 @@ is_valid_provider() {
     return 1
 }
 
-model="${1:-}"
+is_valid_quant() {
+    local q
+    for q in "${VALID_QUANTS[@]}"; do
+        [[ "$1" == "$q" ]] && return 0
+    done
+    return 1
+}
 
-[[ -n "$model" ]] || usage
+# --- Parsing degli argomenti ---
 
-is_valid_provider "$model" || { echo "Invalid model: $model" >&2; usage; }
+# Il primo argomento deve essere la famiglia del modello
+if [[ $# -lt 1 ]]; then
+    usage
+fi
+
+model="$1"
+shift # Rimuove la famiglia dagli argomenti per processare le opzioni
+
+# Default values
+quant=""
 port="8000"
 host="0.0.0.0"
 
+# Ciclo di parsing delle opzioni
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --quant)
+            quant="$2"
+            shift 2
+            ;;
+        --port)
+            port="$2"
+            shift 2
+            ;;
+        --host)
+            host="$2"
+            shift 2
+            ;;
+        -h|--help)
+            usage
+            ;;
+        *)
+            echo "Unknown option: $1" >&2
+            usage
+            ;;
+    esac
+done
+
+# --- Validazioni post-parsing ---
+
+# 1. Validazione famiglia modello
+if ! is_valid_provider "$model"; then
+    echo "Error: Invalid model family: $model" >&2
+    usage
+fi
+Q=""
+# 2. Validazione quantizzazione (esclusiva per unsloth)
+if [[ "$model" == "unsloth" ]]; then
+    if [[ -n "$quant" ]]; then
+        if ! is_valid_quant "$quant"; then
+            echo "Error: Invalid quantization '$quant' for unsloth. Use: ${VALID_QUANTS[*]}" >&2
+            exit 1
+        fi
+	Q="-$quant"
+    else
+        echo "Error: --quant is required when using unsloth family." >&2
+        exit 1
+    fi
+else
+    # Se la famiglia NON è unsloth (quindi è nvfp4)
+    if [[ -n "$quant" ]]; then
+        echo "Error: The --quant option is not valid for the '$model' family." >&2
+        exit 1
+    fi
+fi
+
+# --- Esecuzione ---
+
+# Costruiamo i parametri extra per il comando python
+# Se quant è vuoto (caso nvfp4), non aggiungiamo l'argomento
+#extra_args=()
+#if [[ -n "$quant" ]]; then
+#    extra_args+=(--quant "$quant")
+#fi
+
 ./Strata/.venv/bin/python ./Strata/serve/server.py \
     --engine strata \
-    --config ./strata-$model.json \
-    --port $port --host $host \
+    --config "./strata-${model}${Q}.json" \
+    --port "$port" \
+    --host "$host" \
     --open
