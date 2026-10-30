@@ -19,10 +19,10 @@
   "131072",
   "--kv",
   "int8",
-  "--pcie-frac",
-  "0.00",
   "--spec-min-p",
   "0.70",
+  "--pcie-frac",
+  "0.00",
   "--adapt-every",
   "1",
   "--adapt-swaps",
@@ -55,6 +55,16 @@
   "0": "helper",
   "1": "main"
  },
+ "user_args": [
+  "--pcie-frac",
+  "0.00",
+  "--adapt-every",
+  "1",
+  "--adapt-swaps",
+  "80",
+  "--adapt-decay",
+  "0.97"
+ ],
  "args_written": [
   "--pack",
   "/nvme/Strata-data/packs/unsloth-ud-q5_k_xl",
@@ -68,13 +78,21 @@
   "auto",
   "--spec",
   "4",
-  "--spec-min-p",
-  "0.5",
   "--mtp",
   "/nvme/Strata-data/mtp/rt",
   "--max-context",
   "131072",
   "--kv",
-  "int8"
+  "int8",
+  "--spec-min-p",
+  "0.70",
+  "--pcie-frac",
+  "0.00",
+  "--adapt-every",
+  "1",
+  "--adapt-swaps",
+  "80",
+  "--adapt-decay",
+  "0.97"
  ]
 }
