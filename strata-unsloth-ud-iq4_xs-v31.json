@@ -2,9 +2,9 @@
  "exe": "/home/alvise/Strata/Strata/engine/strata",
  "args": [
   "--pack",
-  "/nvme/Strata-data/packs/unsloth-ud-iq4_xs-v31",
+  "/nvme/Strata-data/models/packs/unsloth-ud-iq4_xs-v31",
   "--native",
-  "/nvme/Strata-data/models/unsloth-UD-IQ4_XS-v31/Qwen3.8-Flash-Next-UD-IQ4_XS-00001-of-00004.gguf",
+  "/nvme/Strata-data/models/models/unsloth-UD-IQ4_XS-v31/Qwen3.8-Flash-Next-UD-IQ4_XS-00001-of-00004.gguf",
   "--expert-profile",
   "/home/alvise/Strata/Strata/data/expert-profile.bin",
   "--expert-cache",
@@ -16,7 +16,7 @@
   "--spec-min-p",
   "0.5",
   "--mtp",
-  "/nvme/Strata-data/mtp/rt",
+  "/nvme/Strata-data/models/mtp/rt",
   "--max-context",
   "262144",
   "--kv",
@@ -27,7 +27,7 @@
   "32768"
  ],
  "cwd": "/home/alvise/Strata/Strata",
- "tokenizer": "/nvme/Strata-data/packs/unsloth-ud-iq4_xs-v31/tokenizer",
+ "tokenizer": "/nvme/Strata-data/models/packs/unsloth-ud-iq4_xs-v31/tokenizer",
  "model_name": "qwen3.8-flash-next-unsloth-ud-iq4_xs-v31",
  "log": "/home/alvise/Strata/Strata/strata-unsloth-ud-iq4_xs-v31.log",
  "lib_dirs": [
@@ -36,7 +36,6 @@
  ],
  "port": 8080,
  "env": {
-  "STRATA_HC_Q8": "1",
   "STRATA_ROUTE_TAIL_SKIP": "0"
  },
  "gpu": [
@@ -50,11 +49,12 @@
   "0": "helper",
   "1": "main"
  },
+ "draft_vocab": "en",
  "args_written": [
   "--pack",
-  "/nvme/Strata-data/packs/unsloth-ud-iq4_xs-v31",
+  "/nvme/Strata-data/models/packs/unsloth-ud-iq4_xs-v31",
   "--native",
-  "/nvme/Strata-data/models/unsloth-UD-IQ4_XS-v31/Qwen3.8-Flash-Next-UD-IQ4_XS-00001-of-00004.gguf",
+  "/nvme/Strata-data/models/models/unsloth-UD-IQ4_XS-v31/Qwen3.8-Flash-Next-UD-IQ4_XS-00001-of-00004.gguf",
   "--expert-profile",
   "/home/alvise/Strata/Strata/data/expert-profile.bin",
   "--expert-cache",
@@ -66,7 +66,7 @@
   "--spec-min-p",
   "0.5",
   "--mtp",
-  "/nvme/Strata-data/mtp/rt",
+  "/nvme/Strata-data/models/mtp/rt",
   "--max-context",
   "262144",
   "--kv",
