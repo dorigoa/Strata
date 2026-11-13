@@ -124,7 +124,7 @@ c.pop("sycl_root", None)                      # written by to_sycl(), read by no
 env = c.setdefault("env", {})
 env.pop("STRATA_SYCL_BIN", None)              # meaningless without the wrapper
 env.update({"STRATA_VERIFY_DEVICE_PLAN": "1",
-            "STRATA_VERIFY_NO_HOST": "1",
+            "STRATA_VERIFY_NO_HOST": "0",
             "STRATA_STAGER_THREADS": "12",
             "STRATA_CACHE_DIR": "/home/alvise/Strata/.strata-cache"})
 
