@@ -78,7 +78,7 @@ cd ~/Strata/Strata
 ./setup.sh --backend sycl --setup --no-start \
   --family unsloth --model UD-IQ4_XS-v31 \
   --kv int8 --context 262144 \ 
-  --host 192.168.1.200 --port 8080 \
+  --host 192.168.1.200 --port 8000 \
   --data-dir ~/Strata/Strata-data/ --models-dir ~/Strata/Strata-data/models/
 ```
 
@@ -153,8 +153,8 @@ build, not AOT). Compiled kernels are cached under `STRATA_CACHE_DIR`.
 
 Endpoints:
 
-- OpenAI: `http://<host>:8080/v1`
-- Anthropic: `http://<host>:8080/v1/messages`
+- OpenAI: `http://<host>:8000/v1`
+- Anthropic: `http://<host>:8000/v1/messages`
 
 Engine log: `~/Strata/Strata/strata-<model>.log`.
 
