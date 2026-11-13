@@ -1,6 +1,6 @@
 # Strata on Intel Arc (SYCL) — bare-metal install, no container
 
-Target: Ubuntu 26, 2× Intel Arc Pro B70, Strata engine **0.1.59** prebuilt SYCL package, engine running
+Target: Ubuntu 26.10 (kernel 7.3.0), 2× Intel Arc Pro B70, Strata engine **0.1.59** prebuilt SYCL package, engine running
 directly on the host (the `strata-sycl-dev` Docker image is **not** used).
 
 Layout assumed throughout:
