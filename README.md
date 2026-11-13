@@ -75,13 +75,22 @@ ls -l build-sycl/strata             # must resolve to ../engine/strata
 
 ```sh
 cd ~/Strata/Strata
+#STRATA_SYCL_ROOT=/ ./setup.sh --backend sycl --setup --no-start \
+#  --family unsloth --model UD-IQ4_XS-v31 \
+#  --kv int8 --context 262144 \
+#  --gpus all \
+#  --host 192.168.1.200 --port 8000 \
+#  --mtp on --drafter mtp \
+#  --data-dir ~/Strata/Strata-data/ --models-dir ~/Strata/Strata-data/models/
+
 STRATA_SYCL_ROOT=/ ./setup.sh --backend sycl --setup --no-start \
   --family unsloth --model UD-IQ4_XS-v31 \
   --kv int8 --context 262144 \
   --gpus all \
   --host 192.168.1.200 --port 8000 \
-  --mtp on --drafter mtp \
-  --data-dir ~/Strata/Strata-data/ --models-dir ~/Strata/Strata-data/models/
+  --mtp off \
+  --data-dir ~/Strata/Strata-data/ --models-dir ~/Strata/Strata-data/models/ \
+  --draft-vocab en --parallel 1 --vision no
 ```
 
 Downloads the model (~94 GB), builds the pack and the MTP draft layer, compiles the CPU image reader,
@@ -109,6 +118,7 @@ cp strata-unsloth-ud-iq4_xs-v31.json strata-unsloth-ud-iq4_xs-v31.json.bak
 
 sed -i 's+/home/alvise/Strata/Strata/sycl/serve/strata-sycl.sh+/home/alvise/Strata/engine/strata+' strata-unsloth-ud-iq4_xs-v31.json
 sed -i 's+/work/nvme+/nvme+g' strata-unsloth-ud-iq4_xs-v31.json
+sed -i 's+/work/home+/home+g' strata-unsloth-ud-iq4_xs-v31.json
 ```
 
 Notes:
