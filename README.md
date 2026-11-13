@@ -46,6 +46,7 @@ Check the actual version on <https://github.com/Niko1221/Strata/releases> first.
 ```sh
 mkdir -p ~/Strata/engine && cd ~/Strata/engine
 curl -LO https://github.com/Niko1221/Strata/releases/download/v0.1.59/strata-engine-0.1.59-linux-x86_64-sycl.tar.gz
+# I've an engine 0.1.59 in my iCloudDrive 
 tar xzf strata-engine-0.1.59-linux-x86_64-sycl.tar.gz
 ```
 
