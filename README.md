@@ -133,6 +133,8 @@ env.update({"STRATA_VERIFY_DEVICE_PLAN": "1",
 p.write_text(json.dumps(c, indent=1), encoding="utf-8")
 print(json.dumps({k: c[k] for k in ("exe", "backend", "env")}, indent=1))
 EOF
+
+# Re-check the json for path correctness
 ```
 
 Notes:
