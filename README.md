@@ -76,8 +76,9 @@ ls -l build-sycl/strata             # must resolve to ../engine/strata
 ```sh
 cd ~/Strata/Strata
 ./setup.sh --backend sycl --setup --no-start \
-  --family unsloth --host 192.168.1.200 --port 8080 \
-  --model UD-IQ4_XS-v31 --kv int8 --context 131072 \
+  --family unsloth --model UD-IQ4_XS-v31 \
+  --kv int8 --context 262144 \ 
+  --host 192.168.1.200 --port 8080 \
   --data-dir ~/Strata/Strata-data/ --models-dir ~/Strata/Strata-data/models/
 ```
 
