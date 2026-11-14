@@ -46,6 +46,7 @@ Check the actual version on <https://github.com/Niko1221/Strata/releases> first.
 ```sh
 mkdir -p ~/Strata/engine && cd ~/Strata/engine
 curl -LO https://github.com/Niko1221/Strata/releases/download/v0.1.59/strata-engine-0.1.59-linux-x86_64-sycl.tar.gz
+# I've an engine 0.1.59 in my iCloudDrive 
 tar xzf strata-engine-0.1.59-linux-x86_64-sycl.tar.gz
 ```
 
@@ -75,11 +76,22 @@ ls -l build-sycl/strata             # must resolve to ../engine/strata
 
 ```sh
 cd ~/Strata/Strata
-./setup.sh --backend sycl --setup --no-start \
+#STRATA_SYCL_ROOT=/ ./setup.sh --backend sycl --setup --no-start \
+#  --family unsloth --model UD-IQ4_XS-v31 \
+#  --kv int8 --context 262144 \
+#  --gpus all \
+#  --host 192.168.1.200 --port 8000 \
+#  --mtp on --drafter mtp \
+#  --data-dir ~/Strata/Strata-data/ --models-dir ~/Strata/Strata-data/models/
+
+STRATA_SYCL_ROOT=/ ./setup.sh --backend sycl --setup --no-start \
   --family unsloth --model UD-IQ4_XS-v31 \
-  --kv int8 --context 262144 \ 
+  --kv int8 --context 262144 \
+  --gpus all \
   --host 192.168.1.200 --port 8000 \
-  --data-dir ~/Strata/Strata-data/ --models-dir ~/Strata/Strata-data/models/
+  --mtp off \
+  --data-dir ~/Strata/Strata-data/ --models-dir ~/Strata/Strata-data/models/ \
+  --draft-vocab en --parallel 1 --vision no
 ```
 
 Downloads the model (~94 GB), builds the pack and the MTP draft layer, compiles the CPU image reader,
@@ -103,34 +115,11 @@ Replaces the container wrapper with the engine binary, rewrites `/work/...` to h
 
 ```sh
 cd ~/Strata/Strata
-cp strata-unsloth-ud-iq4_xs-v31.json strata-unsloth-ud-iq4_xs-v31.json.container
+cp strata-unsloth-ud-iq4_xs-v31.json strata-unsloth-ud-iq4_xs-v31.json.bak
 
-python3 - <<'EOF'
-import json, pathlib
-
-p = pathlib.Path("strata-unsloth-ud-iq4_xs-v31.json")
-c = json.loads(p.read_text(encoding="utf-8"))
-
-def host(x):
-    return "/home/alvise/Strata/" + x[len("/work/"):] if isinstance(x, str) and x.startswith("/work/") else x
-
-for k in ("args", "user_args", "args_written"):
-    if isinstance(c.get(k), list):
-        c[k] = [host(v) for v in c[k]]
-
-c["exe"] = "/home/alvise/Strata/engine/strata"
-c.pop("sycl_root", None)                      # written by to_sycl(), read by nothing but the wrapper
-
-env = c.setdefault("env", {})
-env.pop("STRATA_SYCL_BIN", None)              # meaningless without the wrapper
-env.update({"STRATA_VERIFY_DEVICE_PLAN": "1",
-            "STRATA_VERIFY_NO_HOST": "0",
-            "STRATA_STAGER_THREADS": "12",
-            "STRATA_CACHE_DIR": "/home/alvise/Strata/.strata-cache"})
-
-p.write_text(json.dumps(c, indent=1), encoding="utf-8")
-print(json.dumps({k: c[k] for k in ("exe", "backend", "env")}, indent=1))
-EOF
+sed -i 's+/home/alvise/Strata/Strata/sycl/serve/strata-sycl.sh+/home/alvise/Strata/engine/strata+' strata-unsloth-ud-iq4_xs-v31.json
+sed -i 's+/work/nvme+/nvme+g' strata-unsloth-ud-iq4_xs-v31.json
+sed -i 's+/work/home+/home+g' strata-unsloth-ud-iq4_xs-v31.json
 ```
 
 Notes:
